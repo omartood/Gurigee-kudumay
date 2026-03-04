@@ -6,9 +6,9 @@
   "author": {
     "name": "Omar Tood"
   },
-  "version": "0.0.4",
+  "version": "1.0.0",
   "engines": {
-    "vscode": "^1.109.0"
+    "vscode": "^1.80.0"
   },
   "repository": {
     "type": "git",
@@ -91,7 +91,7 @@
   },
   "devDependencies": {
     "@types/node": "16.x",
-    "@types/vscode": "^1.109.0",
+    "@types/vscode": "^1.80.0",
     "@vscode/test-electron": "^2.2.3",
     "eslint": "^8.34.0",
     "glob": "^10.3.0"

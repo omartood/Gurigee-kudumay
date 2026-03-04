@@ -1,0 +1,94 @@
+{
+  "name": "gurigee-kudamay",
+  "displayName": "Gurigee kudamay",
+  "description": "Somali sound — plays a sound when commands or tasks fail in VS Code",
+  "publisher": "gurigee-kudamay",
+  "author": {
+    "name": "Omar Tood"
+  },
+  "version": "0.0.4",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "somali",
+    "gurigee kudamay",
+    "sound",
+    "error",
+    "fail",
+    "audio",
+    "notification",
+    "terminal",
+    "task",
+    "diagnostic"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Gurigee kudamay",
+      "properties": {
+        "gurigeeKudamay.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound on failures"
+        },
+        "gurigeeKudamay.soundFileName": {
+          "type": "string",
+          "default": "gurigee.mp3",
+          "description": "Sound file name in the media folder (default: gurigee.mp3)"
+        },
+        "gurigeeKudamay.cooldown": {
+          "type": "number",
+          "default": 2000,
+          "description": "Cooldown between sounds (ms)"
+        },
+        "gurigeeKudamay.soundOnTerminalFail": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when a terminal command fails"
+        },
+        "gurigeeKudamay.soundOnTaskFail": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when a task (e.g. build, test) fails"
+        },
+        "gurigeeKudamay.soundOnDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play sound when there are diagnostic (lint/compile) errors in the workspace"
+        },
+        "gurigeeKudamay.stopOnBuildFail": {
+          "type": "boolean",
+          "default": true,
+          "description": "When npm run build (or any build task) fails: stop the build immediately (daarmo)"
+        },
+        "gurigeeKudamay.buildTaskNames": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["build", "compile", "npm: build", "npm run build", "yarn: build"],
+          "description": "Task names considered as 'build'. When one fails, build stops (daarmo). Includes npm run build."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js",
+    "test:local": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.109.0",
+    "@vscode/test-electron": "^2.2.3",
+    "eslint": "^8.34.0",
+    "glob": "^10.3.0"
+  }
+}

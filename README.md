@@ -1,6 +1,6 @@
 <h1 align="center">Gurigee Kudumay</h1>
 
-<p align="center"><img src="caleyka.jpeg" width="140"/></p>
+<p align="center"><img src="media/caleyka.jpeg" width="140"/></p>
 
 <p align="center"><b>The viral Somali meme sound for VS Code errors.</b></p>
 

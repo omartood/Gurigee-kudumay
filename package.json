@@ -30,7 +30,7 @@
   "categories": [
     "Other"
   ],
-  "icon": "caleyka.jpeg",
+  "icon": "media/caleyka.jpeg",
   "activationEvents": [
     "onStartupFinished"
   ],

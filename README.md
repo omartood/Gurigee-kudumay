@@ -1,83 +1,136 @@
-# Gurigee kudamay 
+<h1 align="center">Gurigee Kudumay</h1>
 
-<p align="center"><img src="caleyka.jpeg" width="120" /></p>
+<p align="center"><img src="caleyka.jpeg" width="140"/></p>
 
+<p align="center"><b>The viral Somali meme sound for VS Code errors.</b></p>
 
-**Dhawaq Soomaali ah marka wax qalda** — a Somali sound when something goes wrong in VS Code.
+---
 
-*Gurigee kudamay* plays a sound (codka) when your terminal command fails, a task fails, or there are errors in your code. It’s the **Somali sound** extension for VS Code: one sound, one moment — *gurigee kudamay*.
+## What is this?
+
+**Gurigee Kudumay** is a fun VS Code extension that plays the viral Somali meme sound
+**"Gurigee ku dumay!" (Caleyka)** when something goes wrong in your code.
+
+When your build fails.
+When your tests crash.
+When your terminal returns an error.
+
+You hear the sound.
+
+**GURIGEE KU DUMAY.**
+
+Because debugging is painful, so it might as well be funny.
 
 ---
 
 ## Features
 
-- **Terminal failures** — dhawaq marka amaruu terminaalka uu ku guuro (non-zero exit)
-- **Task failures** — dhawaq marka task (build, test, etc.) uu ku guuro
-- **Build fail → daarmo** — marka build uu ku guuro, extension-ku wuu daarin karaa (stop) task-yada socda
-- **Diagnostic errors** — dhawaq marka jirto qalad (lint/compile) workspace-ka
-- **Configurable** — enable/disable, cooldown, sound file name, iyo waxa dhawaqa soo saara
-- **Lightweight** — no extra runtime dependencies
+- 🔊 **Terminal failure sound** — Plays the meme when a terminal command exits with an error.
+- 🧪 **Task failure sound** — Build or test tasks that fail will trigger the sound.
+- ❌ **Diagnostic errors** — If your workspace has compile or lint errors, the meme can play.
+- 🧱 **Stop on build fail** — Optionally stop running tasks when a build fails.
+- ⚙️ **Configurable settings** — Enable or disable features and change cooldown timing.
+- 🪶 **Lightweight** — No extra runtime dependencies.
 
 ---
 
-## Requirements
+## Installation
 
-- VS Code 1.109.0 or higher
+1. Install the extension from the **VS Code Marketplace**.
+2. Add your meme sound file inside:
 
----
-
-## Extension settings (Gurigee kudamay)
-
-| Setting | Description | Default |
-|--------|-------------|--------|
-| `gurigeeKudamay.enable` | Enable/disable Somali sound | `true` |
-| `gurigeeKudamay.soundFileName` | Faylka dhawaqa ee folder-ka `media/` | `gurigee.mp3` |
-| `gurigeeKudamay.cooldown` | Cooldown between sounds (ms) | `2000` |
-| `gurigeeKudamay.soundOnTerminalFail` | Dhawaq marka terminal command uu ku guuro | `true` |
-| `gurigeeKudamay.soundOnTaskFail` | Dhawaq marka task uu ku guuro | `true` |
-| `gurigeeKudamay.soundOnDiagnostics` | Dhawaq marka diagnostic errors jiraan | `true` |
-| `gurigeeKudamay.stopOnBuildFail` | Daarmo (stop) marka build uu ku guuro | `true` |
-| `gurigeeKudamay.buildTaskNames` | Magacyada task-yada loo tixgeliyo "build" | `["build", "compile", "npm: build", ...]` |
-
----
-
-## Usage
-
-1. **Install** the extension.
-2. **Add your sound file** — geli **`gurigee.mp3`** (ama faylka dhawaqa aad rabto) folder-ka **`media/`**.
-3. The extension activates automatically — **dhawaq Soomaali ah** marka wax qalda.
-4. **Test:** run in terminal: `exit 1` — you should hear the sound.
-
-**Daarmo (stop on build fail):** When a build task fails, the extension plays the sound and can **stop** (daarmo) further execution if `gurigeeKudamay.stopOnBuildFail` is enabled.
-
----
-
-## Testing
-
-- **Terminal:** run `exit 1` in the terminal.
-- **Task:** run a task that fails (e.g. a build).
-- **Diagnostics:** open a file with a syntax error (e.g. `const x = ;`).
-
----
-
-## Configuration
-
-**File → Preferences → Settings** → search **“Gurigee kudamay”**.
-
-Example:
-
-```json
-"gurigeeKudamay.enable": true,
-"gurigeeKudamay.cooldown": 2000,
-"gurigeeKudamay.soundFileName": "gurigee.mp3"
+```
+media/gurigee.mp3
 ```
 
+3. Run your code normally.
+
+When something breaks...
+
+**GURIGEE KU DUMAY.**
+
 ---
 
-## Known issues
+## Quick Test
 
-- **Linux:** player ayaa loo baahan (e.g. `mpg123`, `ffplay`, `paplay`, `aplay`). Tusaale: `sudo apt install mpg123`
-- Dhawaq ma ciyaari doono haddii VS Code ama system volume la dumin (muted).
+Open the terminal in VS Code and run:
+
+```
+exit 1
+```
+
+If everything is set up correctly, the meme sound will play.
+
+---
+
+## Extension Settings
+
+| Setting | Description | Default |
+|--------|-------------|---------|
+| `gurigeeKudamay.enable` | Enable or disable the extension | `true` |
+| `gurigeeKudamay.soundFileName` | Sound file inside `media/` | `gurigee.mp3` |
+| `gurigeeKudamay.cooldown` | Time between sounds (ms) | `2000` |
+| `gurigeeKudamay.soundOnTerminalFail` | Play sound on terminal failure | `true` |
+| `gurigeeKudamay.soundOnTaskFail` | Play sound on task failure | `true` |
+| `gurigeeKudamay.soundOnDiagnostics` | Play sound on code errors | `true` |
+| `gurigeeKudamay.stopOnBuildFail` | Stop tasks when build fails | `true` |
+
+---
+
+## Meme Mode
+
+Coding normally:
+
+```
+Build succeeded
+Tests passed
+Everything works
+```
+
+Coding after installing this extension:
+
+```
+npm run build
+
+❌ ERROR
+
+GURIGEE KU DUMAY
+```
+
+Your code base collapses.
+Your confidence collapses.
+Your terminal screams the meme.
+
+Perfect developer experience.
+
+---
+
+## Why this exists
+
+Developers love meme extensions.
+
+There are many already:
+- error scream extensions
+- funny build sounds
+- random meme alerts
+
+So we made a **Somali meme version**.
+
+Because when the code breaks, the house also breaks.
+
+**Gurigee ku dumay.**
+
+---
+
+## Known Issues
+
+**Linux users** may need a sound player installed such as:
+
+```
+sudo apt install mpg123
+```
+
+No sound will play if the system or VS Code is muted.
 
 ---
 
@@ -87,4 +140,12 @@ MIT
 
 ---
 
-**Gurigee kudamay** — *Somali sound for VS Code errors.*
+## Final words
+
+If your code compiles:
+
+good job.
+
+If your code fails:
+
+**GURIGEE KU DUMAY.**

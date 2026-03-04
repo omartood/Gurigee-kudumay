@@ -1,4 +1,7 @@
-# Gurigee kudamay — Somali Sound Extension
+# Gurigee kudamay 
+
+<p align="center"><img src="caleyka.jpeg" width="120" /></p>
+
 
 **Dhawaq Soomaali ah marka wax qalda** — a Somali sound when something goes wrong in VS Code.
 

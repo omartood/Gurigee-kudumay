@@ -1,5 +1,5 @@
 /**
- * Gurigee kudamay — local smoke test (no VS Code required).
+ * Gurigee kudumay — local smoke test (no VS Code required).
  * Run: npm test
  */
 const path = require("path");
@@ -16,7 +16,7 @@ function fail(name, msg) {
   failed++;
 }
 
-console.log("Gurigee kudamay — smoke test\n");
+console.log("Gurigee kudumay — smoke test\n");
 
 // 1. extension.js exists and valid syntax
 try {

@@ -1,6 +1,6 @@
 {
-  "name": "gurigee-kudamay",
-  "displayName": "Gurigee kudamay",
+  "name": "gurigee-kudumay",
+  "displayName": "Gurigee kudumay",
   "description": "Plays the viral Somali meme sound ‘Gurigee ku dumay’ when your code fails, your build crashes, or your terminal says nope.",
   "publisher": "omartood",
   "author": {
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/omartood/gurigee-kudamay"
+    "url": "https://github.com/omartood/gurigee-kudumay"
   },
   "license": "MIT",
   "keywords": [
     "somali",
-    "gurigee kudamay",
+    "gurigee kudumay",
     "sound",
     "error",
     "fail",
@@ -37,44 +37,44 @@
   "main": "./extension.js",
   "contributes": {
     "configuration": {
-      "title": "Gurigee kudamay",
+      "title": "Gurigee kudumay",
       "properties": {
-        "gurigeeKudamay.enable": {
+        "gurigeeKudumay.enable": {
           "type": "boolean",
           "default": true,
           "description": "Enable sound on failures"
         },
-        "gurigeeKudamay.soundFileName": {
+        "gurigeeKudumay.soundFileName": {
           "type": "string",
           "default": "gurigee.mp3",
           "description": "Sound file name in the media folder (default: gurigee.mp3)"
         },
-        "gurigeeKudamay.cooldown": {
+        "gurigeeKudumay.cooldown": {
           "type": "number",
           "default": 2000,
           "description": "Cooldown between sounds (ms)"
         },
-        "gurigeeKudamay.soundOnTerminalFail": {
+        "gurigeeKudumay.soundOnTerminalFail": {
           "type": "boolean",
           "default": true,
           "description": "Play sound when a terminal command fails"
         },
-        "gurigeeKudamay.soundOnTaskFail": {
+        "gurigeeKudumay.soundOnTaskFail": {
           "type": "boolean",
           "default": true,
           "description": "Play sound when a task (e.g. build, test) fails"
         },
-        "gurigeeKudamay.soundOnDiagnostics": {
+        "gurigeeKudumay.soundOnDiagnostics": {
           "type": "boolean",
           "default": true,
           "description": "Play sound when there are diagnostic (lint/compile) errors in the workspace"
         },
-        "gurigeeKudamay.stopOnBuildFail": {
+        "gurigeeKudumay.stopOnBuildFail": {
           "type": "boolean",
           "default": true,
           "description": "When npm run build (or any build task) fails: stop the build immediately (daarmo)"
         },
-        "gurigeeKudamay.buildTaskNames": {
+        "gurigeeKudumay.buildTaskNames": {
           "type": "array",
           "items": { "type": "string" },
           "default": ["build", "compile", "npm: build", "npm run build", "yarn: build"],

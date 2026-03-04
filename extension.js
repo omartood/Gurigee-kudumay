@@ -1,5 +1,5 @@
 /**
- * Gurigee kudamay — Somali Sound Extension
+ * Gurigee kudumay — Somali Sound Extension
  * Plays a sound when commands/tasks fail in VS Code.
  * When a BUILD fails, can optionally STOP further execution (fail-fast).
  * License: MIT
@@ -16,7 +16,7 @@ let diagnosticsDebounceTimer = null;
 const DIAGNOSTICS_DEBOUNCE_MS = 800;
 
 function getConfig() {
-  const config = vscode.workspace.getConfiguration("gurigeeKudamay");
+  const config = vscode.workspace.getConfiguration("gurigeeKudumay");
   return {
     enabled: config.get("enable", true),
     cooldown: config.get("cooldown", 2000),
@@ -53,25 +53,25 @@ function getSoundPath(context) {
 function playSound(context) {
   const config = getConfig();
   if (!config.enabled) {
-    console.log("Gurigee kudamay: Sound disabled in settings");
+    console.log("Gurigee kudumay: Sound disabled in settings");
     return;
   }
 
   const now = Date.now();
   if (now - lastPlayed < config.cooldown) {
-    console.log("Gurigee kudamay: Still in cooldown");
+    console.log("Gurigee kudumay: Still in cooldown");
     return;
   }
   lastPlayed = now;
 
   const soundPath = getSoundPath(context);
   if (!soundPath) {
-    console.warn("Gurigee kudamay: No sound file in media/ — add gurigee.mp3");
+    console.warn("Gurigee kudumay: No sound file in media/ — add gurigee.mp3");
     return;
   }
-  console.log("Gurigee kudamay: Playing sound!", soundPath);
+  console.log("Gurigee kudumay: Playing sound!", soundPath);
 
-  updateStatusBar("Gurigee kudamay — Error!", true);
+  updateStatusBar("Gurigee kudumay — Error!", true);
 
   const platform = process.platform;
 
@@ -83,7 +83,7 @@ function playSound(context) {
       if (error && fallbacks && index + 1 < fallbacks.length) {
         tryPlay(null, fallbacks, index + 1);
       } else if (error) {
-        console.error("Gurigee kudamay Error:", error);
+        console.error("Gurigee kudumay Error:", error);
       }
     });
   }
@@ -106,7 +106,7 @@ function playSound(context) {
 function updateStatusBar(text, isError) {
   if (!statusBarItem) return;
   statusBarItem.text = text;
-  statusBarItem.tooltip = isError ? "An error occurred (Gurigee kudamay)" : "Gurigee kudamay";
+  statusBarItem.tooltip = isError ? "An error occurred (Gurigee kudumay)" : "Gurigee kudumay";
   statusBarItem.show();
 }
 
@@ -115,11 +115,11 @@ function stopRunningTasks() {
   var cmd = "workbench.action.tasks.terminate";
   // Try "terminateAll" first to kill all tasks, then plain terminate for active task.
   vscode.commands.executeCommand(cmd, "terminateAll").then(
-    () => console.log("Gurigee kudamay: Terminated all tasks (daarmo)."),
+    () => console.log("Gurigee kudumay: Terminated all tasks (daarmo)."),
     function () {
       vscode.commands.executeCommand(cmd).then(
-        () => console.log("Gurigee kudamay: Terminated task (daarmo)."),
-        function (err) { console.warn("Gurigee kudamay: Could not terminate:", err); }
+        () => console.log("Gurigee kudumay: Terminated task (daarmo)."),
+        function (err) { console.warn("Gurigee kudumay: Could not terminate:", err); }
       );
     }
   );
@@ -129,7 +129,7 @@ function activate(context) {
   try {
     return doActivate(context);
   } catch (err) {
-    console.error("Gurigee kudamay: activate failed", err);
+    console.error("Gurigee kudumay: activate failed", err);
     throw err;
   }
 }
@@ -138,9 +138,9 @@ function doActivate(context) {
   try {
     statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
     context.subscriptions.push(statusBarItem);
-    updateStatusBar("Gurigee kudamay", false);
+    updateStatusBar("Gurigee kudumay", false);
   } catch (e) {
-    console.warn("Gurigee kudamay: Status bar init failed", e);
+    console.warn("Gurigee kudumay: Status bar init failed", e);
   }
 
   try {
@@ -151,7 +151,7 @@ function doActivate(context) {
           if (!cfg.soundOnTerminalFail && !cfg.stopOnBuildFail) return;
           var exitStatus = terminal.exitStatus;
           if (exitStatus && exitStatus.code !== 0) {
-            console.log("Gurigee kudamay: Terminal failed with code:", exitStatus.code);
+            console.log("Gurigee kudumay: Terminal failed with code:", exitStatus.code);
             if (cfg.soundOnTerminalFail) playSound(context);
             if (cfg.stopOnBuildFail) stopRunningTasks();
           }
@@ -159,7 +159,7 @@ function doActivate(context) {
       );
     }
   } catch (e) {
-    console.warn("Gurigee kudamay: onDidCloseTerminal failed", e);
+    console.warn("Gurigee kudumay: onDidCloseTerminal failed", e);
   }
 
   try {
@@ -169,7 +169,7 @@ function doActivate(context) {
           const cfg = getConfig();
           if (!cfg.soundOnTerminalFail && !cfg.stopOnBuildFail) return;
           if (event.exitCode != null && event.exitCode !== 0) {
-            console.log("Gurigee kudamay: Command failed with code:", event.exitCode);
+            console.log("Gurigee kudumay: Command failed with code:", event.exitCode);
             if (cfg.soundOnTerminalFail) playSound(context);
             if (cfg.stopOnBuildFail) stopRunningTasks();
           }
@@ -177,7 +177,7 @@ function doActivate(context) {
       );
     }
   } catch (e) {
-    console.warn("Gurigee kudamay: onDidEndTerminalShellExecution failed", e);
+    console.warn("Gurigee kudumay: onDidEndTerminalShellExecution failed", e);
   }
 
   try {
@@ -191,12 +191,12 @@ function doActivate(context) {
           var exec = event.execution;
           const isBuild = exec && exec.task ? isBuildLikeTask(exec.task) : false;
           if (isBuild) {
-            console.log("Gurigee kudamay: Build task failed with code:", event.exitCode);
+            console.log("Gurigee kudumay: Build task failed with code:", event.exitCode);
             if (cfg.soundOnTaskFail) playSound(context);
             if (cfg.stopOnBuildFail) stopRunningTasks();
           } else {
             if (cfg.soundOnTaskFail) {
-              console.log("Gurigee kudamay: Task failed with code:", event.exitCode);
+              console.log("Gurigee kudumay: Task failed with code:", event.exitCode);
               playSound(context);
             }
           }
@@ -204,7 +204,7 @@ function doActivate(context) {
       );
     }
   } catch (e) {
-    console.warn("Gurigee kudamay: onDidEndTaskProcess failed", e);
+    console.warn("Gurigee kudumay: onDidEndTaskProcess failed", e);
   }
 
   try {
@@ -223,21 +223,21 @@ function doActivate(context) {
                 return diag && diag.some(function (d) { return d.severity === vscode.DiagnosticSeverity.Error; });
               });
               if (hasErrors) {
-                console.log("Gurigee kudamay: Diagnostic errors detected");
+                console.log("Gurigee kudumay: Diagnostic errors detected");
                 playSound(context);
               }
             } catch (err) {
-              console.warn("Gurigee kudamay: getDiagnostics failed", err);
+              console.warn("Gurigee kudumay: getDiagnostics failed", err);
             }
           }, DIAGNOSTICS_DEBOUNCE_MS);
         })
       );
     }
   } catch (e) {
-    console.warn("Gurigee kudamay: diagnostics listener failed", e);
+    console.warn("Gurigee kudumay: diagnostics listener failed", e);
   }
 
-  console.log("Gurigee kudamay extension activated");
+  console.log("Gurigee kudumay extension activated");
 }
 
 function deactivate() {

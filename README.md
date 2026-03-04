@@ -67,13 +67,13 @@ If everything is set up correctly, the meme sound will play.
 
 | Setting | Description | Default |
 |--------|-------------|---------|
-| `gurigeeKudamay.enable` | Enable or disable the extension | `true` |
-| `gurigeeKudamay.soundFileName` | Sound file inside `media/` | `gurigee.mp3` |
-| `gurigeeKudamay.cooldown` | Time between sounds (ms) | `2000` |
-| `gurigeeKudamay.soundOnTerminalFail` | Play sound on terminal failure | `true` |
-| `gurigeeKudamay.soundOnTaskFail` | Play sound on task failure | `true` |
-| `gurigeeKudamay.soundOnDiagnostics` | Play sound on code errors | `true` |
-| `gurigeeKudamay.stopOnBuildFail` | Stop tasks when build fails | `true` |
+| `gurigeeKudumay.enable` | Enable or disable the extension | `true` |
+| `gurigeeKudumay.soundFileName` | Sound file inside `media/` | `gurigee.mp3` |
+| `gurigeeKudumay.cooldown` | Time between sounds (ms) | `2000` |
+| `gurigeeKudumay.soundOnTerminalFail` | Play sound on terminal failure | `true` |
+| `gurigeeKudumay.soundOnTaskFail` | Play sound on task failure | `true` |
+| `gurigeeKudumay.soundOnDiagnostics` | Play sound on code errors | `true` |
+| `gurigeeKudumay.stopOnBuildFail` | Stop tasks when build fails | `true` |
 
 ---
 

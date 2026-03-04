@@ -1,14 +1,18 @@
 {
   "name": "gurigee-kudamay",
   "displayName": "Gurigee kudamay",
-  "description": "Somali sound — plays a sound when commands or tasks fail in VS Code",
-  "publisher": "gurigee-kudamay",
+  "description": "Plays the viral Somali meme sound ‘Gurigee ku dumay’ when your code fails, your build crashes, or your terminal says nope.",
+  "publisher": "omartood",
   "author": {
     "name": "Omar Tood"
   },
   "version": "0.0.4",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.109.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omartood/gurigee-kudamay"
   },
   "license": "MIT",
   "keywords": [

@@ -6,7 +6,7 @@
   "author": {
     "name": "Omar Tood"
   },
-  "version": "1.0.0",
+  "version": "1.3.0",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -46,8 +46,8 @@
         },
         "gurigeeKudumay.soundFileName": {
           "type": "string",
-          "default": "gurigee.mp3",
-          "description": "Sound file name in the media folder (default: gurigee.mp3)"
+          "default": "gurigee-kudumay.mp3",
+          "description": "Sound file name in the media folder (default: gurigee-kudumay.mp3)"
         },
         "gurigeeKudumay.cooldown": {
           "type": "number",

@@ -55,17 +55,17 @@ try {
 // 3. media folder exists
 const mediaDir = path.join(root, "media");
 if (!fs.existsSync(mediaDir)) {
-  fail("media/", "folder not found — create it and add gurigee.mp3");
+  fail("media/", "folder not found — create it and add gurigee-kudumay.mp3");
 } else {
   ok("media/ folder exists");
 }
 
-// 4. gurigee.mp3 (optional but recommended)
-const mp3Path = path.join(mediaDir, "gurigee.mp3");
+// 4. gurigee-kudumay.mp3 (optional but recommended)
+const mp3Path = path.join(mediaDir, "gurigee-kudumay.mp3");
 if (!fs.existsSync(mp3Path)) {
-  fail("media/gurigee.mp3", "not found — add it to hear the sound");
+  fail("media/gurigee-kudumay.mp3", "not found — add it to hear the sound");
 } else {
-  ok("media/gurigee.mp3 exists");
+  ok("media/gurigee-kudumay.mp3 exists");
 }
 
 console.log("");

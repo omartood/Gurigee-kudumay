@@ -13,6 +13,7 @@ const fs = require("fs");
 let lastPlayed = 0;
 let statusBarItem = null;
 let diagnosticsDebounceTimer = null;
+let currentSoundProcess = null;
 const DIAGNOSTICS_DEBOUNCE_MS = 800;
 
 function getConfig() {
@@ -20,7 +21,7 @@ function getConfig() {
   return {
     enabled: config.get("enable", true),
     cooldown: config.get("cooldown", 2000),
-    soundFileName: config.get("soundFileName", "gurigee.mp3"),
+    soundFileName: config.get("soundFileName", "gurigee-kudumay.mp3"),
     soundOnTerminalFail: config.get("soundOnTerminalFail", true),
     soundOnTaskFail: config.get("soundOnTaskFail", true),
     soundOnDiagnostics: config.get("soundOnDiagnostics", true),
@@ -43,49 +44,50 @@ function isBuildLikeTask(task) {
 function getSoundPath(context) {
   const config = getConfig();
   const mediaDir = path.join(context.extensionPath, "media");
-  const primary = path.join(mediaDir, config.soundFileName || "gurigee.mp3");
+  const primary = path.join(mediaDir, config.soundFileName || "gurigee-kudumay.mp3");
   if (fs.existsSync(primary)) return primary;
-  const fallback = path.join(mediaDir, "gurigee.mp3");
+  const fallback = path.join(mediaDir, "gurigee-kudumay.mp3");
   if (fs.existsSync(fallback)) return fallback;
   return null;
 }
 
-function playSound(context) {
-  const config = getConfig();
-  if (!config.enabled) {
-    console.log("Gurigee kudumay: Sound disabled in settings");
-    return;
+let soundRestartTimer = null;
+
+function stopCurrentSound() {
+  if (soundRestartTimer) {
+    clearTimeout(soundRestartTimer);
+    soundRestartTimer = null;
   }
-
-  const now = Date.now();
-  if (now - lastPlayed < config.cooldown) {
-    console.log("Gurigee kudumay: Still in cooldown");
-    return;
+  if (currentSoundProcess) {
+    try {
+      currentSoundProcess.kill("SIGTERM");
+    } catch (e) {}
+    currentSoundProcess = null;
   }
-  lastPlayed = now;
-
-  const soundPath = getSoundPath(context);
-  if (!soundPath) {
-    console.warn("Gurigee kudumay: No sound file in media/ — add gurigee.mp3");
-    return;
-  }
-  console.log("Gurigee kudumay: Playing sound!", soundPath);
-
-  updateStatusBar("Gurigee kudumay — Error!", true);
-
+  // Force-kill any lingering player processes on Linux/Mac
   const platform = process.platform;
+  if (platform === "linux") {
+    try { exec("pkill -f 'mpg123|paplay|aplay|ffplay' 2>/dev/null"); } catch (e) {}
+  } else if (platform === "darwin") {
+    try { exec("pkill -f afplay 2>/dev/null"); } catch (e) {}
+  }
+}
 
+function startPlayer(soundPath, platform) {
   function tryPlay(cmd, fallbacks, index) {
     if (index >= (fallbacks || []).length && !cmd) return;
     const c = cmd || (fallbacks && fallbacks[index]);
     if (!c) return;
-    exec(c, (error) => {
+    const proc = exec(c, (error) => {
+      if (currentSoundProcess === proc) currentSoundProcess = null;
+      if (error && error.killed) return;
       if (error && fallbacks && index + 1 < fallbacks.length) {
         tryPlay(null, fallbacks, index + 1);
       } else if (error) {
         console.error("Gurigee kudumay Error:", error);
       }
     });
+    currentSoundProcess = proc;
   }
 
   if (platform === "darwin") {
@@ -101,6 +103,35 @@ function playSound(context) {
       `ffplay -nodisp -autoexit "${soundPath}" 2>/dev/null`,
     ], 0);
   }
+}
+
+function playSound(context) {
+  const config = getConfig();
+  if (!config.enabled) {
+    console.log("Gurigee kudumay: Sound disabled in settings");
+    return;
+  }
+
+  const soundPath = getSoundPath(context);
+  if (!soundPath) {
+    console.warn("Gurigee kudumay: No sound file in media/ — add gurigee-kudumay.mp3");
+    return;
+  }
+
+  const platform = process.platform;
+
+  // Stop whatever is playing right now
+  stopCurrentSound();
+
+  console.log("Gurigee kudumay: Restarting sound from beginning!");
+  updateStatusBar("Gurigee kudumay — Error!", true);
+
+  // Short pause so audio device releases, then restart fresh from beginning
+  soundRestartTimer = setTimeout(() => {
+    soundRestartTimer = null;
+    lastPlayed = Date.now();
+    startPlayer(soundPath, platform);
+  }, 80);
 }
 
 function updateStatusBar(text, isError) {
@@ -243,6 +274,8 @@ function doActivate(context) {
 function deactivate() {
   if (diagnosticsDebounceTimer) clearTimeout(diagnosticsDebounceTimer);
   if (statusBarItem) statusBarItem.dispose();
+  stopCurrentSound();
+  lastPlayed = 0;
 }
 
 module.exports = {
